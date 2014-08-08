@@ -29,4 +29,11 @@ describe Doctor do
     expect(@test_doctor==@test_doctor).to eq true
   end
 
+  it 'should assign the current doctor to the given patient.' do
+    @test_patient.save
+    @test_doctor.save
+    @test_doctor.assign_to_patient(@test_patient)
+    expect(@test_patient.get_doctor).to eq @test_doctor
+  end
+
 end

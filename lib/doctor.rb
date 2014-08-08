@@ -28,4 +28,8 @@ class Doctor
     (@name == another_doctor.name) && (@specialty_id == another_doctor.specialty_id) && (@insurance_id == another_doctor.insurance_id) && (@id == another_doctor.id)
   end
 
+  def assign_to_patient(patient)
+    DB.exec("UPDATE patients SET doctor_id = '#{@id}' WHERE id = '#{patient.id}';")
+  end
+
 end
