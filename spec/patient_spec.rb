@@ -1,20 +1,8 @@
-require "rspec"
-require 'pg'
-require 'doctor'
-require 'patient'
-require 'pry'
-
-DB = PG.connect({:dbname => 'drs_office'})
-
-RSpec.configure do |config|
-  config.after(:each) do
-    DB.exec("DELETE FROM patients * ;")
-  end
-end
+require 'rspec_helper'
 
 describe Patient do
   before do
-    @test_patient = Patient.new({'name' => 'Bom Taker', 'birthdate' => '1999-03-02'})
+    setup
   end
 
   it "initialize a Patient object" do
