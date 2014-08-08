@@ -11,7 +11,13 @@ describe Specialty do
   end
 
   it 'will save to the database.' do
-    @test_specialty.save
     expect(Specialty.all).to eq [@test_specialty]
+  end
+
+  it 'will return the doctors with a specified specialty' do
+    @test_doctor.save
+    @test_doctor2.save
+    @test_doctor3.save
+    expect(@test_specialty.specialty_sort).to eq [@test_doctor, @test_doctor2, @test_doctor3]
   end
 end

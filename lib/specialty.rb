@@ -4,12 +4,12 @@ class Specialty
 
   def initialize(attributes)
     @name = attributes['name']
-    @id = attributes['id']
+    @id = attributes['id'].to_i
   end
 
   def save
     results = DB.exec("INSERT INTO specialties (name) VALUES ('#{@name}') RETURNING id;")
-    @id = results.first['id']
+    @id = results.first['id'].to_i
   end
 
   def self.all
@@ -24,5 +24,15 @@ class Specialty
 
   def ==(another_specialty)
     @name == another_specialty.name && @id == another_specialty.id
+  end
+
+  def specialty_sort
+    results = DB.exec("SELECT * FROM doctors WHERE specialty_id = '#{@id}';")
+    sorted_docs = []
+    results.each do |result|
+      current_doc = Doctor.new(result)
+      sorted_docs << current_doc
+    end
+    sorted_docs
   end
 end

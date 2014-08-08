@@ -32,4 +32,9 @@ class Doctor
     DB.exec("UPDATE patients SET doctor_id = '#{@id}' WHERE id = '#{patient.id}';")
   end
 
+  def change_specialty(specialty)
+    results = DB.exec("UPDATE doctors SET specialty_id = '#{specialty.id}' WHERE id = '#{@id}' RETURNING specialty_id;")
+    @specialty_id = results.first['specialty_id'].to_i
+  end
+
 end
