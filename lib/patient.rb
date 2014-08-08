@@ -4,7 +4,7 @@ class Patient
 
   def initialize(attributes)
     @name = attributes['name']
-    @birthdate = attributes['birthdate']
+    @birthdate = attributes['birthdate'].split(" ")[0]
     @id = attributes['id'].to_i
   end
 
@@ -12,11 +12,7 @@ class Patient
     patients = []
     results = DB.exec("SELECT * FROM patients;")
     results.each do |result|
-      current_name = result['name']
-      current_birthdate = result['birthdate'].split(" ")[0]
-      current_id = result['id'].to_i
-      attributes = {'name' => current_name, 'birthdate' => current_birthdate, 'id' => current_id}
-      current_patient = Patient.new(attributes)
+      current_patient = Patient.new(result)
       patients << current_patient
     end
     patients

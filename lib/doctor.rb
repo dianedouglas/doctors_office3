@@ -13,12 +13,7 @@ class Doctor
     doctors = []
     results = DB.exec("SELECT * FROM doctors;")
     results.each do |result|
-      current_doc_name = result['name']
-      current_specialty_id = result['specialty_id'].to_i
-      current_insurance_id = result['insurance_id'].to_i
-      current_doc_id = result['id'].to_i
-      attributes = {'name' => current_doc_name, 'specialty_id' => current_specialty_id, 'insurance_id' => current_insurance_id, 'id' => current_doc_id}
-      current_doc = Doctor.new(attributes)
+      current_doc = Doctor.new(result)
       doctors << current_doc
     end
     doctors
